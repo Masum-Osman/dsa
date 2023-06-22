@@ -1,6 +1,9 @@
 package array
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 func Sum(numbers []int) int {
 	sum := 0
@@ -48,14 +51,43 @@ func ContainsDuplicate(nums []int) bool {
 	return false
 }
 
+// LC 217
 func ContainsDuplicateUsingMap(nums []int) bool {
-	nums_map := make(map[int]int)
-	nums_map[0] = nums[0]
+	nums_map := map[int]int{}
 
-	for i := 1; i < len(nums); i++ {
-		val, exist := nums_map[nums[i]]
-		fmt.Println(val, exist)
+	for _, n := range nums {
+		if _, ok := nums_map[n]; !ok {
+			nums_map[n] = 1
+		} else {
+			return true
+		}
+	}
+	return false
+}
+
+func ReverseString(s string) string {
+	output := ""
+
+	for i := 1; i <= len(s); i++ {
+		output += string(s[len(s)-i])
+	}
+	return output
+}
+
+func ValidAnagramBruteForce(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
 	}
 
-	return false
+	map1 := map[int]byte{}
+	map2 := map[int]byte{}
+
+	for i := 0; i < len(s); i++ {
+		map1[i] = s[i]
+		map2[i] = t[i]
+	}
+
+	fmt.Println(map1, map2)
+
+	return reflect.DeepEqual(map1, map2)
 }

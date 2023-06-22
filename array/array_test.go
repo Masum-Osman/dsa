@@ -1,6 +1,7 @@
 package array
 
 import (
+	"fmt"
 	"testing"
 )
 
@@ -47,9 +48,9 @@ func TestContainsDuplicates(t *testing.T) {
 
 	cases := []testCases{
 		{[]int{7, 5, -2, -4, 0}, false},
-		// {[]int{1, 2, 3, 1}, true},
-		// {[]int{0, 4, 5, 0, 3, 6}, true},
-		// {[]int{1, 1, 1, 3, 3, 4, 3, 2, 4, 2}, true},
+		{[]int{1, 2, 3, 1}, true},
+		{[]int{0, 4, 5, 0, 3, 6}, true},
+		{[]int{1, 1, 1, 3, 3, 4, 3, 2, 4, 2}, true},
 	}
 
 	for _, tc := range cases {
@@ -57,6 +58,36 @@ func TestContainsDuplicates(t *testing.T) {
 
 		if tc.result != got {
 			t.Error("Wanted: ", tc.result, " || Got: ", got)
+		}
+	}
+}
+
+func TestReverseString(t *testing.T) {
+	got := ReverseString("abcdef")
+	fmt.Println(got)
+}
+
+func TestValidAnagram(t *testing.T) {
+	type testCases struct {
+		str1   string
+		str2   string
+		output bool
+	}
+
+	cases := []testCases{
+		// {"anagram", "nagaram", true},
+		// {"rat", "car", false},
+		{"anaal", "naala", true},
+		// {"fahim", "fuck", false},
+		// {"aacc", "ccac", false},
+	}
+
+	for _, tc := range cases {
+		got := ValidAnagramBruteForce(tc.str1, tc.str2)
+
+		// fmt.Println(got)
+		if tc.output != got {
+			t.Error("Wanted: ", tc.output, " || Got: ", got)
 		}
 	}
 }
