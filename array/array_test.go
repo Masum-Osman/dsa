@@ -2,6 +2,7 @@ package array
 
 import (
 	"fmt"
+	"reflect"
 	"testing"
 )
 
@@ -75,11 +76,11 @@ func TestValidAnagram(t *testing.T) {
 	}
 
 	cases := []testCases{
-		// {"anagram", "nagaram", true},
-		// {"rat", "car", false},
+		{"anagram", "nagaram", true},
+		{"rat", "car", false},
 		{"anaal", "naala", true},
-		// {"fahim", "fuck", false},
-		// {"aacc", "ccac", false},
+		{"aacc", "ccac", false},
+		{"feem", "duck", false},
 	}
 
 	for _, tc := range cases {
@@ -87,6 +88,29 @@ func TestValidAnagram(t *testing.T) {
 
 		// fmt.Println(got)
 		if tc.output != got {
+			t.Error("Wanted: ", tc.output, " || Got: ", got)
+		}
+	}
+}
+
+func TestTwoSum(t *testing.T) {
+	type testCases struct {
+		nums   []int
+		target int
+		output []int
+	}
+
+	cases := []testCases{
+		{[]int{2, 7, 11, 15}, 9, []int{0, 1}},
+		// {[]int{3, 2, 4}, 6, []int{1, 2}},
+		// {[]int{3, 3}, 6, []int{0, 1}},
+	}
+
+	for _, tc := range cases {
+		got := TwoSum(tc.nums, tc.target)
+
+		fmt.Println(got)
+		if !reflect.DeepEqual(got, tc.output) {
 			t.Error("Wanted: ", tc.output, " || Got: ", got)
 		}
 	}

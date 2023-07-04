@@ -2,7 +2,6 @@ package array
 
 import (
 	"fmt"
-	"reflect"
 )
 
 func Sum(numbers []int) int {
@@ -74,20 +73,58 @@ func ReverseString(s string) string {
 	return output
 }
 
+/*
+LC 242:
+We can also use this snippet to count the frequency of a char in a desired string:
+*/
 func ValidAnagramBruteForce(s string, t string) bool {
 	if len(s) != len(t) {
 		return false
 	}
 
-	map1 := map[int]byte{}
-	map2 := map[int]byte{}
+	slice1, slice2 := [26]int{}, [26]int{}
 
 	for i := 0; i < len(s); i++ {
-		map1[i] = s[i]
-		map2[i] = t[i]
+		slice1[s[i]-'a']++
+		slice2[t[i]-'a']++
 	}
 
-	fmt.Println(map1, map2)
+	return slice1 == slice2
+}
 
-	return reflect.DeepEqual(map1, map2)
+/*
+LC 1:
+*/
+func TwoSumWrong(nums []int, target int) []int {
+	start := 0
+	end := len(nums) - 1
+
+	for start <= end {
+		sum := nums[start] + nums[end]
+		if sum == target {
+			return []int{start, end}
+		} else {
+			start++
+			end--
+		}
+	}
+
+	return []int{}
+}
+
+func TwoSum(nums []int, target int) []int {
+	lookup := make(map[int]int)
+
+	for i, v := range nums {
+		j, ok := lookup[target-v]
+		fmt.Println(j, ok)
+		if ok {
+			return []int{j, i}
+		}
+
+		lookup[v] = i
+		fmt.Println("lookup map: ", lookup)
+	}
+
+	return []int{}
 }
