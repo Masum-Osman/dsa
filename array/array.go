@@ -2,6 +2,7 @@ package array
 
 import (
 	"fmt"
+	"sort"
 )
 
 func Sum(numbers []int) int {
@@ -77,7 +78,7 @@ func ReverseString(s string) string {
 LC 242:
 We can also use this snippet to count the frequency of a char in a desired string:
 */
-func ValidAnagramBruteForce(s string, t string) bool {
+func ValidAnagram(s string, t string) bool {
 	if len(s) != len(t) {
 		return false
 	}
@@ -128,3 +129,53 @@ func TwoSum(nums []int, target int) []int {
 
 	return []int{}
 }
+
+func SortString(s string) string {
+	sChars := []rune(s)
+	sort.Slice(sChars, func(i, j int) bool {
+		return sChars[i] < sChars[j]
+	})
+
+	return string(sChars)
+}
+
+func GroupAnagrams(strs []string) [][]string {
+	mp := make(map[string][]string)
+	var ans [][]string
+
+	for _, s := range strs {
+		sorted := SortString(s)
+		mp[sorted] = append(mp[sorted], s)
+	}
+
+	for _, v := range mp {
+		ans = append(ans, v)
+	}
+
+	return ans
+}
+
+/*
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    map<string, vector<string>> mp;
+    vector<vector<string>> ans;
+
+    // Iterate over the input vector of strings
+    for(int i = 0; i < strs.size(); i++) {
+        string s = strs[i];
+
+        // Sort the current string in alphabetical order
+        sort(strs[i].begin(), strs[i].end());
+
+        // Add the original string to the corresponding anagram vector
+        mp[strs[i]].push_back(s);
+    }
+
+    // Iterate over the map and add the anagram vectors to the result vector
+    for(auto & it: mp) {
+        ans.push_back(it.second);
+    }
+
+    return ans;
+}
+*/

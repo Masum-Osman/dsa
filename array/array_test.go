@@ -84,7 +84,7 @@ func TestValidAnagram(t *testing.T) {
 	}
 
 	for _, tc := range cases {
-		got := ValidAnagramBruteForce(tc.str1, tc.str2)
+		got := ValidAnagram(tc.str1, tc.str2)
 
 		// fmt.Println(got)
 		if tc.output != got {
@@ -102,8 +102,8 @@ func TestTwoSum(t *testing.T) {
 
 	cases := []testCases{
 		{[]int{2, 7, 11, 15}, 9, []int{0, 1}},
-		// {[]int{3, 2, 4}, 6, []int{1, 2}},
-		// {[]int{3, 3}, 6, []int{0, 1}},
+		{[]int{3, 2, 4}, 6, []int{1, 2}},
+		{[]int{3, 3}, 6, []int{0, 1}},
 	}
 
 	for _, tc := range cases {
@@ -112,6 +112,27 @@ func TestTwoSum(t *testing.T) {
 		fmt.Println(got)
 		if !reflect.DeepEqual(got, tc.output) {
 			t.Error("Wanted: ", tc.output, " || Got: ", got)
+		}
+	}
+}
+
+func TestGroupAnagrams(t *testing.T) {
+	type testCases struct {
+		Input  []string
+		Output [][]string
+	}
+
+	cases := []testCases{
+		{[]string{"eat", "tea", "tan", "ate", "nat", "bat"}, [][]string{{"bat"}, {"nat", "tan"}, {"ate", "eat", "tea"}}},
+		{[]string{""}, [][]string{{""}}},
+		{[]string{"a"}, [][]string{{"a"}}},
+	}
+
+	for i, tc := range cases {
+		got := GroupAnagrams(tc.Input)
+
+		if !reflect.DeepEqual(got, tc.Output) {
+			t.Error("For test Case: ", i+1, "Wanted: ", tc.Output, " || Got: ", got)
 		}
 	}
 }
