@@ -136,3 +136,24 @@ func TestGroupAnagrams(t *testing.T) {
 		}
 	}
 }
+
+func TestTopKFrequent(t *testing.T) {
+	type testCases struct {
+		Input  []int
+		K      int
+		Output []int
+	}
+
+	cases := []testCases{
+		{[]int{1, 1, 1, 2, 2, 3}, 2, []int{1, 2}},
+		{[]int{1}, 1, []int{1}},
+	}
+
+	for i, tc := range cases {
+		got := TopKFrequent(tc.Input, tc.K)
+
+		if !reflect.DeepEqual(got, tc.Output) {
+			t.Error("For test Case: ", i+1, "Wanted: ", tc.Output, " || Got: ", got)
+		}
+	}
+}
