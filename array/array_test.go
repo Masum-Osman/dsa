@@ -147,6 +147,7 @@ func TestTopKFrequent(t *testing.T) {
 	cases := []testCases{
 		{[]int{1, 1, 1, 2, 2, 3}, 2, []int{1, 2}},
 		{[]int{1}, 1, []int{1}},
+		{[]int{1, 1, 1, 2, 2, 3, 3, 3, 3, 3}, 2, []int{3, 1}},
 	}
 
 	for i, tc := range cases {

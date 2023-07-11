@@ -156,7 +156,26 @@ func GroupAnagrams(strs []string) [][]string {
 }
 
 func TopKFrequent(nums []int, k int) []int {
+
 	var elements []int
+	mp := make(map[int]int)
+
+	for _, num := range nums {
+		mp[num] = mp[num] + 1
+	}
+
+	keys := make([]int, 0, len(mp))
+	for key := range mp {
+		keys = append(keys, key)
+	}
+
+	sort.Slice(keys, func(i, j int) bool {
+		return mp[keys[i]] > mp[keys[j]]
+	})
+
+	for i := 0; i < k; i++ {
+		elements = append(elements, keys[i])
+	}
 
 	return elements
 }
